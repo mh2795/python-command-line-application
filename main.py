@@ -54,3 +54,45 @@ def readContacts():
     else:
         pass
 
+
+def updateContacts():
+    print("update contacts coming soon.")
+
+
+def deleteContacts():
+    print("delete contacts coming soon.")
+
+
+command = {
+    'c': createContacts,
+    'r': readContacts,
+    'u': updateContacts,
+    'd': deleteContacts
+}
+
+# main
+
+
+def _usage():
+    print(f'USAGE: python {sys.argv[0]} c|r|u|d')
+
+
+def _main():
+    try:
+        command[sys.argv[1]]()
+        return 0
+    except IndexError:
+        _usage()
+        return 1
+    except KeyError:
+        _usage()
+        return 2
+    finally:
+        print("disconnecting from db")
+        db.close()
+
+
+if __name__ == '__main__':
+    exitval = _main()
+
+    sys.exit(exitval)
